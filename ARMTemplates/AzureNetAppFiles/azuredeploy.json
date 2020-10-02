@@ -1,0 +1,290 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "subscriptionId": {
+      "type": "string"
+    },
+    "srcAccountName": {
+      "type": "string"
+    },
+    "srcLocation": {
+      "type": "string"
+    },
+    "srcPoolName": {
+      "type": "string"
+    },
+    "srcVolumeName": {
+      "type": "string"
+    },
+    "srcVnetResourceGroupName": {
+      "type": "string"
+    },
+    "srcVnetName": {
+      "type": "string"
+    },
+    "srcSubnetName": {
+      "type": "string"
+    },
+    "srcServiceLevel": {
+      "type": "string"
+    },
+    "srcCreationToken": {
+      "type": "string"
+    },
+    "srcProtocolTypes": {
+      "type": "array"
+    },
+
+    "destAccountName": {
+      "type": "string"
+    },
+    "destLocation": {
+      "type": "string"
+    },
+    "destPoolName": {
+      "type": "string"
+    },
+    "destVolumeName": {
+      "type": "string"
+    },
+    "destVnetResourceGroupName": {
+      "type": "string"
+    },
+    "destVnetName": {
+      "type": "string"
+    },
+    "destSubnetName": {
+      "type": "string"
+    },
+    "destServiceLevel": {
+      "type": "string"
+    },
+    "destCreationToken": {
+      "type": "string"
+    },
+    "destProtocolTypes": {
+      "type": "array"
+    },
+
+    "_artifactsLocation": {
+      "type": "string"
+    },
+    "_artifactsLocationSasToken": {
+      "type": "securestring"
+    }
+  },
+  "variables": {
+    "linkedTemplatesFolder": "nestedtemplates",
+    "ANF-Account-TemplateFileName": "anf-account-template.json",
+    "ANF-CapacityPool-TemplateFileName": "anf-capacitypool-template.json",
+    "ANF-Volume-TemplateFileName": "anf-volume-template.json",
+    "ANF-Volume-Protection-TemplateFileName": "anf-volume-protection-template.json"
+  },
+  "resources": [
+    {
+      "name": "ANF-Account-Src",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('linkedTemplatesFolder'), '/', variables('ANF-Account-TemplateFileName'), parameters('_artifactsLocationSasToken'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "accountName": {
+            "value": "[parameters('srcAccountName')]"
+          },
+          "location": {
+            "value": "[parameters('srcLocation')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "ANF-Account-Dest",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('linkedTemplatesFolder'), '/', variables('ANF-Account-TemplateFileName'), parameters('_artifactsLocationSasToken'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "accountName": {
+            "value": "[parameters('destAccountName')]"
+          },
+          "location": {
+            "value": "[parameters('destLocation')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "ANF-CapacityPool-Src",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'ANF-Account-Src')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('linkedTemplatesFolder'), '/', variables('ANF-CapacityPool-TemplateFileName'), parameters('_artifactsLocationSasToken'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "accountName": {
+            "value": "[parameters('srcAccountName')]"
+          },
+          "location": {
+            "value": "[parameters('srcLocation')]"
+          },
+          "poolName": {
+            "value": "[parameters('srcPoolName')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "ANF-CapacityPool-Dest",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'ANF-Account-Dest')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('linkedTemplatesFolder'), '/', variables('ANF-CapacityPool-TemplateFileName'), parameters('_artifactsLocationSasToken'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "accountName": {
+            "value": "[parameters('destAccountName')]"
+          },
+          "location": {
+            "value": "[parameters('destLocation')]"
+          },
+          "poolName": {
+            "value": "[parameters('destPoolName')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "ANF-Volume-Src",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'ANF-CapacityPool-Src')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('linkedTemplatesFolder'), '/', variables('ANF-Volume-TemplateFileName'), parameters('_artifactsLocationSasToken'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "subscriptionId": {
+            "value": "[parameters('subscriptionId')]"
+          },
+          "accountName": {
+            "value": "[parameters('srcAccountName')]"
+          },
+          "location": {
+            "value": "[parameters('srcLocation')]"
+          },
+          "poolName": {
+            "value": "[parameters('srcPoolName')]"
+          },
+          "volumeName": {
+            "value": "[parameters('srcVolumeName')]"
+          },
+          "vnetResourceGroupName": {
+            "value": "[parameters('srcVnetResourceGroupName')]"
+          },
+          "vnetName": {
+            "value": "[parameters('srcVnetName')]"
+          },
+          "subnetName": {
+            "value": "[parameters('srcSubnetName')]"
+          },
+          "serviceLevel": {
+            "value": "[parameters('srcServiceLevel')]"
+          },
+          "creationToken": {
+            "value": "[parameters('srcCreationToken')]"
+          },
+          "protocolTypes": {
+            "value": "[parameters('srcProtocolTypes')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "ANF-Volume-Protection-Dest",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/deployments', 'ANF-Volume-Src')]",
+        "[resourceId('Microsoft.Resources/deployments', 'ANF-CapacityPool-Dest')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('linkedTemplatesFolder'), '/', variables('ANF-Volume-Protection-TemplateFileName'), parameters('_artifactsLocationSasToken'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "subscriptionId": {
+            "value": "[parameters('subscriptionId')]"
+          },
+          "accountName": {
+            "value": "[parameters('destAccountName')]"
+          },
+          "location": {
+            "value": "[parameters('destLocation')]"
+          },
+          "poolName": {
+            "value": "[parameters('destPoolName')]"
+          },
+          "volumeName": {
+            "value": "[parameters('destVolumeName')]"
+          },
+          "vnetResourceGroupName": {
+            "value": "[parameters('destVnetResourceGroupName')]"
+          },
+          "vnetName": {
+            "value": "[parameters('destVnetName')]"
+          },
+          "subnetName": {
+            "value": "[parameters('destSubnetName')]"
+          },
+          "serviceLevel": {
+            "value": "[parameters('destServiceLevel')]"
+          },
+          "creationToken": {
+            "value": "[parameters('destCreationToken')]"
+          },
+          "protocolTypes": {
+            "value": "[parameters('destProtocolTypes')]"
+          },
+          "remoteVolumeResourceId": {
+            "value": "[reference('ANF-Volume-Src').outputs.resourceID.value]"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "srcVolumeResourceId": {
+      "type": "string",
+      "value": "[reference('ANF-Volume-Src').outputs.resourceID.value]"
+    }
+  }
+}

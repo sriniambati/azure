@@ -1,0 +1,74 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "subscriptionId": {
+      "value": "484dbcc4-0579-4e2a-8fff-404cc6fc77d8"
+    },
+    "srcAccountName": {
+      "value": "NetAppAccountSrc1"
+    },
+    "srcLocation": {
+      "value": "westus2"
+    },
+    "srcPoolName": {
+      "value": "srcPool1"
+    },
+    "srcVolumeName": {
+      "value": "srcvolume1"
+    },
+    "srcVnetResourceGroupName": {
+      "value": "rg-networktest"
+    },
+    "srcVnetName": {
+      "value": "vnet-anfdemo-src1"
+    },
+    "srcSubnetName": {
+      "value": "subnet-anfdemo-src1"
+    },
+    "srcServiceLevel": {
+      "value": "Standard"
+    },
+    "srcCreationToken": {
+      "value": "srcvolume1"
+    },
+    "srcProtocolTypes": {
+      "value": [
+        "NFSv3"
+      ]
+    },
+
+    "destAccountName": {
+      "value": "NetAppAccountDest1"
+    },
+    "destLocation": {
+      "value": "eastus"
+    },
+    "destPoolName": {
+      "value": "destPool1"
+    },
+    "destVolumeName": {
+      "value": "destvolume1"
+    },
+    "destVnetResourceGroupName": {
+      "value": "rg-networktest"
+    },
+    "destVnetName": {
+      "value": "vnet-anfdemo-dest1"
+    },
+    "destSubnetName": {
+      "value": "subnet-anfdemo-dest1"
+    },
+    "destServiceLevel": {
+      "value": "Standard"
+    },
+    "destCreationToken": {
+      "value": "srcvolume1"
+    },
+    "destProtocolTypes": {
+      "value": [
+        "NFSv3"
+      ]
+    }
+  }
+}

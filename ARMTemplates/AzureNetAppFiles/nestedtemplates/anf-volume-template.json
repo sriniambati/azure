@@ -1,0 +1,77 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "subscriptionId": {
+      "type": "string"
+    },
+    "accountName": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "poolName": {
+      "type": "string"
+    },
+    "volumeName": {
+      "type": "string"
+    },
+    "vnetResourceGroupName": {
+      "type": "string"
+    },
+    "vnetName": {
+      "type": "string"
+    },
+    "subnetName": {
+      "type": "string"
+    },
+    "serviceLevel": {
+      "type": "string"
+    },
+    "creationToken": {
+      "type": "string"
+    },
+    "protocolTypes": {
+      "type": "array"
+    }
+  },
+  "variables": {
+    "apiVersion": "2019-07-01"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.NetApp/netAppAccounts/capacityPools/volumes",
+      "apiVersion": "[variables('apiVersion')]",
+      "name": "[concat(parameters('accountName'), '/', parameters('poolName'), '/', parameters('volumeName'))]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "serviceLevel": "[parameters('serviceLevel')]",
+        "creationToken": "[parameters('creationToken')]",
+        "usageThreshold": 107374182400,
+        "subnetId": "[concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('vnetResourceGroupName'), '/providers/Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('subnetName'))]",
+        "protocolTypes": "[parameters('protocolTypes')]",
+        "exportPolicy": {
+          "rules": [
+            {
+              "ruleIndex": 1,
+              "unixReadOnly": false,
+              "unixReadWrite": true,
+              "cifs": false,
+              "nfsv3": true,
+              "nfsv41": false,
+              "allowedClients": "0.0.0.0/0"
+            }
+          ]
+        }
+      },
+      "tags": {}
+    }
+  ],
+  "outputs": {
+    "resourceID": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.NetApp/netAppAccounts/capacityPools/volumes', parameters('accountName'), parameters('poolName'), parameters('volumeName'))]"
+    }
+  }
+}
