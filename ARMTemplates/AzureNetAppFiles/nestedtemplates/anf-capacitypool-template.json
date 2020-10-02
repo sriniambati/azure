@@ -13,17 +13,18 @@
     }
   },
   "variables": {
-    "apiVersion": "2019-07-01"
+    "apiVersion": "2020-06-01"
   },
   "resources": [
     {
       "type": "Microsoft.NetApp/netAppAccounts/capacityPools",
-      "apiVersion": "2019-11-01",
+      "apiVersion": "[variables('apiVersion')]",
       "name": "[concat(parameters('accountName'), '/', parameters('poolName'))]",
       "location": "[parameters('location')]",
       "properties": {
         "serviceLevel": "Standard",
-        "size": 4398046511104
+        "size": 4398046511104,
+        "qosType": "Auto"
       }
     }
   ]

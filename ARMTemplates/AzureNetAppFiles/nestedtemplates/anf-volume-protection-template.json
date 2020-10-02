@@ -40,7 +40,7 @@
     }
   },
   "variables": {
-    "apiVersion": "2019-10-01",
+    "apiVersion": "2020-06-01",
     "volumeType": {
       "value": "DataProtection"
     },
@@ -48,9 +48,8 @@
       "value": {
         "replication": {
           "endPointType": "dst",
-          "remoteVolumeResourceId": "[parameters('remoteVolumeResourceId')]",
-          "replicationSchedule": "_10minutely",
-          "replicationPolicy": "MirrorAllSnapshots"
+          "replicationSchedule": "daily",
+          "remoteVolumeResourceId": "[parameters('remoteVolumeResourceId')]"
         }
       }
     }
@@ -62,13 +61,11 @@
       "name": "[concat(parameters('accountName'), '/', parameters('poolName'), '/', parameters('volumeName'))]",
       "location": "[parameters('location')]",
       "properties": {
+        "volumeType": "[variables('volumeType')]",
+        "dataProtection": "[variables('dataProtection')]",
         "serviceLevel": "[parameters('serviceLevel')]",
         "creationToken": "[parameters('creationToken')]",
         "usageThreshold": 107374182400,
-        "subnetId": "[concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('vnetResourceGroupName'), '/providers/Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('subnetName'))]",
-        "protocolTypes": "[parameters('protocolTypes')]",
-        "volumeType": "[variables('volumeType')]",
-        "dataProtection": "[variables('dataProtection')]",
         "exportPolicy": {
           "rules": [
             {
@@ -78,10 +75,21 @@
               "cifs": false,
               "nfsv3": true,
               "nfsv41": false,
-              "allowedClients": "0.0.0.0/0"
+              "allowedClients": "0.0.0.0/0",
+              "kerberos5ReadOnly": false,
+              "kerberos5ReadWrite": false,
+              "kerberos5iReadOnly": false,
+              "kerberos5iReadWrite": false,
+              "kerberos5pReadOnly": false,
+              "kerberos5pReadWrite": false,
+              "hasRootAccess": true
             }
           ]
-        }
+        },
+        "protocolTypes": "[parameters('protocolTypes')]",
+        "subnetId": "[concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('vnetResourceGroupName'), '/providers/Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('subnetName'))]",
+        "kerberosEnabled": false,
+        "securityStyle": "Unix"
       },
       "tags": {}
     }

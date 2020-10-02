@@ -37,7 +37,7 @@
     }
   },
   "variables": {
-    "apiVersion": "2019-07-01"
+    "apiVersion": "2020-06-01"
   },
   "resources": [
     {
@@ -46,11 +46,10 @@
       "name": "[concat(parameters('accountName'), '/', parameters('poolName'), '/', parameters('volumeName'))]",
       "location": "[parameters('location')]",
       "properties": {
+        "throughputMibps": 0,
         "serviceLevel": "[parameters('serviceLevel')]",
         "creationToken": "[parameters('creationToken')]",
         "usageThreshold": 107374182400,
-        "subnetId": "[concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('vnetResourceGroupName'), '/providers/Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('subnetName'))]",
-        "protocolTypes": "[parameters('protocolTypes')]",
         "exportPolicy": {
           "rules": [
             {
@@ -60,10 +59,22 @@
               "cifs": false,
               "nfsv3": true,
               "nfsv41": false,
-              "allowedClients": "0.0.0.0/0"
+              "allowedClients": "0.0.0.0/0",
+              "kerberos5ReadOnly": false,
+              "kerberos5ReadWrite": false,
+              "kerberos5iReadOnly": false,
+              "kerberos5iReadWrite": false,
+              "kerberos5pReadOnly": false,
+              "kerberos5pReadWrite": false,
+              "hasRootAccess": true
             }
           ]
-        }
+        },
+        "protocolTypes": "[parameters('protocolTypes')]",
+        "subnetId": "[concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('vnetResourceGroupName'), '/providers/Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('subnetName'))]",
+        "snapshotDirectoryVisible": true,
+        "kerberosEnabled": false,
+        "securityStyle": "Unix"
       },
       "tags": {}
     }

@@ -9,7 +9,7 @@
       "value": "NetAppAccountSrc1"
     },
     "srcLocation": {
-      "value": "westus2"
+      "value": "eastus"
     },
     "srcPoolName": {
       "value": "srcPool1"
@@ -18,7 +18,7 @@
       "value": "srcvolume1"
     },
     "srcVnetResourceGroupName": {
-      "value": "rg-networktest"
+      "value": "anfvnet-rg"
     },
     "srcVnetName": {
       "value": "vnet-anfdemo-src1"
@@ -42,7 +42,7 @@
       "value": "NetAppAccountDest1"
     },
     "destLocation": {
-      "value": "eastus"
+      "value": "westus2"
     },
     "destPoolName": {
       "value": "destPool1"
@@ -51,7 +51,7 @@
       "value": "destvolume1"
     },
     "destVnetResourceGroupName": {
-      "value": "rg-networktest"
+      "value": "anfvnet-rg"
     },
     "destVnetName": {
       "value": "vnet-anfdemo-dest1"
