@@ -37,6 +37,12 @@
     },
     "remoteVolumeResourceId": {
       "type": "string"
+    },
+    "endPointType": {
+      "type": "string"
+    },
+    "replicationSchedule": {
+      "type": "string"
     }
   },
   "variables": {
@@ -47,8 +53,8 @@
     "dataProtection": {
       "value": {
         "replication": {
-          "endPointType": "dst",
-          "replicationSchedule": "daily",
+          "endPointType": "[parameters('endPointType')]",
+          "replicationSchedule": "[parameters('replicationSchedule')]",
           "remoteVolumeResourceId": "[parameters('remoteVolumeResourceId')]"
         }
       }

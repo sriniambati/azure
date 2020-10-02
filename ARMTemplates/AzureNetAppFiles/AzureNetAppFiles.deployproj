@@ -29,10 +29,18 @@
       <Visible>False</Visible>
     </None>
     <Content Include="Deploy-AzureResourceGroup.ps1" />
-    <None Include="nestedtemplates\anf-account-template.json" />
-    <None Include="nestedtemplates\anf-capacitypool-template.json" />
-    <None Include="nestedtemplates\anf-volume-protection-template.json" />
-    <None Include="nestedtemplates\anf-volume-template.json" />
+    <Content Include="nestedtemplates\anf-account-template.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="nestedtemplates\anf-capacitypool-template.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="nestedtemplates\anf-volume-protection-template.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="nestedtemplates\anf-volume-template.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
 </Project>

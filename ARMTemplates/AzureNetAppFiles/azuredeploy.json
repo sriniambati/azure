@@ -66,6 +66,9 @@
     "destProtocolTypes": {
       "type": "array"
     },
+    "replicationSchedule": {
+      "type": "string"
+    },
 
     "_artifactsLocation": {
       "type": "string"
@@ -276,6 +279,12 @@
           },
           "remoteVolumeResourceId": {
             "value": "[reference('ANF-Volume-Src').outputs.resourceID.value]"
+          },
+          "endPointType": {
+            "value": "dst"
+          },
+          "replicationSchedule": {
+            "value": "[parameters('replicationSchedule')]"
           }
         }
       }
