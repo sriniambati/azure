@@ -45,30 +45,23 @@
       "type": "string"
     }
   },
-  "variables": {
-    "apiVersion": "2020-06-01",
-    "volumeType": {
-      "value": "DataProtection"
-    },
-    "dataProtection": {
-      "value": {
-        "replication": {
-          "endPointType": "[parameters('endPointType')]",
-          "replicationSchedule": "[parameters('replicationSchedule')]",
-          "remoteVolumeResourceId": "[parameters('remoteVolumeResourceId')]"
-        }
-      }
-    }
-  },
+  "variables": {},
   "resources": [
     {
       "type": "Microsoft.NetApp/netAppAccounts/capacityPools/volumes",
-      "apiVersion": "[variables('apiVersion')]",
+      "apiVersion": "2020-06-01",
       "name": "[concat(parameters('accountName'), '/', parameters('poolName'), '/', parameters('volumeName'))]",
       "location": "[parameters('location')]",
       "properties": {
-        "volumeType": "[variables('volumeType')]",
-        "dataProtection": "[variables('dataProtection')]",
+        "throughputMibps": 0,
+        "volumeType": "DataProtection",
+        "dataProtection": {
+          "replication": {
+            "endPointType": "[parameters('endPointType')]",
+            "replicationSchedule": "[parameters('replicationSchedule')]",
+            "remoteVolumeResourceId": "[parameters('remoteVolumeResourceId')]"
+          }
+        },
         "serviceLevel": "[parameters('serviceLevel')]",
         "creationToken": "[parameters('creationToken')]",
         "usageThreshold": 107374182400,
