@@ -36,13 +36,11 @@
       "type": "array"
     }
   },
-  "variables": {
-    "apiVersion": "2020-06-01"
-  },
+  "variables": {},
   "resources": [
     {
       "type": "Microsoft.NetApp/netAppAccounts/capacityPools/volumes",
-      "apiVersion": "[variables('apiVersion')]",
+      "apiVersion": "2020-06-01",
       "name": "[concat(parameters('accountName'), '/', parameters('poolName'), '/', parameters('volumeName'))]",
       "location": "[parameters('location')]",
       "properties": {

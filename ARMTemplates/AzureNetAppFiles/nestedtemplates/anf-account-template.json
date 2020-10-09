@@ -9,13 +9,11 @@
       "type": "string"
     }
   },
-  "variables": {
-    "apiVersion": "2020-06-01"
-  },
+  "variables": {},
   "resources": [
     {
       "type": "Microsoft.NetApp/netAppAccounts",
-      "apiVersion": "[variables('apiVersion')]",
+      "apiVersion": "2020-06-01",
       "name": "[parameters('accountName')]",
       "location": "[parameters('location')]",
       "properties": {}
