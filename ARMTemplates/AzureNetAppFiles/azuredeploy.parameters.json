@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "subscriptionId": {
-      "value": "484dbcc4-0579-4e2a-8fff-404cc6fc77d8"
+      "value": ""
     },
     "srcAccountName": {
       "value": "NetAppAccountSrc1"
@@ -42,7 +42,7 @@
       "value": "NetAppAccountDest1"
     },
     "destLocation": {
-      "value": "westus2"
+      "value": "westus"
     },
     "destPoolName": {
       "value": "destPool1"
