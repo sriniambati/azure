@@ -1,0 +1,28 @@
+{
+  "type": "Microsoft.Resources/deploymentScripts",
+  "apiVersion": "2019-10-01-preview",
+  "name": "authorizeANF",
+  "location": "[resourceGroup().location]",
+  "dependsOn": [
+    "[resourceId('Microsoft.Resources/deployments', 'ANF-Volume-Protection-Dest')]"
+  ],
+  "identity": {
+    "type": "UserAssigned",
+    "userAssignedIdentities": {
+      "[parameters('identityId')]": {
+      }
+    }
+  },
+  "kind": "AzureCLI",
+  "properties": {
+    "forceUpdateTag": 1,
+    "azCliVersion": "2.0.80",
+      
+  "primaryScriptUri": "https://blbgp2.blob.core.windows.net/nestedtemplates/anfreplicationauthorization.sh?sv=2019-12-12&ss=b&srt=sco&sp=rwdlacx&se=2020-11-28T02:04:16Z&st=2020-10-27T17:04:16Z&spr=https&sig=%2B584Yq7PDfDbShZ1MiDfXHp7789VRGiuWQ%2BdSnVu858%3D",
+    "cleanupPreference": "OnSuccess",
+    "retentionInterval": "P1D"
+  }
+}
+
+
+

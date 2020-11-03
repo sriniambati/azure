@@ -1,0 +1,2 @@
+az login --service-principal --username  APP_ID --password APP_SECRET --tenant TENANT_ID
+az rest --method POST --uri https://management.azure.com/subscriptions/b2ab31f1-c5ec-4afd-ba03-c7e1c26ee4b7/resourceGroups/RESOURCE_GROUP/providers/Microsoft.NetApp/netAppAccounts/SRC_ACCT/capacityPools/SRC_POOL/volumes/SRC_VOLUME/authorizeReplication?api-version=2020-06-01 --body {"\""remoteVolumeResourceId"\"":"\""/subscriptions/SUB_ID/resourceGroups/RESOURCE_GROUP/providers/Microsoft.NetApp/netAppAccounts/NETDEST_ACCT/capacityPools/DEST_POOL/volumes/DEST_VOLUME"\""}

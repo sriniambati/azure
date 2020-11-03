@@ -7,7 +7,7 @@ How to Use This Template:
 
 Templates include master template, nested ARM templates and parameter files. There is a separate template for each ANF resources including ANF Account, ANF Capacitypools, ANF Volume and ANF Replication Volume. Parameter file is prepoluated with default values. Nested template requires deploying it from remote repository. 
 
-ANF requires explicit authorization for replication. ANF provides REST API to authorize the source replication. Once ANF resources are deployed, you will have to use the authorization API as a subsequent task as you cannot call REST API from template itself.
+ANF requires explicit authorization for replication. ANF provides REST API to authorize the source replication. Since we cannot call REST API directly from ARM Template, this template leverages the new preview feature deploymentscripts resource which allows execution of deployment scripts in template deployment.
 
 Quick Links:
 
