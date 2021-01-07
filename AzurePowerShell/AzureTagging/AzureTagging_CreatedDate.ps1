@@ -18,7 +18,7 @@
 ################################################### 
 # Change values of following variables
 ###################################################
-$SP_NAME = "sriniscriptingsp1003"
+$SP_NAME = "<ENTER YOUR VALUE>"
 $CSVFILEPATH = "C:\\Temp\\CreatedDateOutput.csv"
 $CREATE_CREATEDDATE_TAG = "yes"
 $TAGNAME_CREATEDDATE = "CreatedDate"
@@ -44,8 +44,8 @@ $CLIENT_ID = $SP.ApplicationId
 Write-Host "Created Service Principal '$SP_NAME'" -ForegroundColor Cyan
 
 # Uncomment following lines, if you want to use existing Service Principal
-#$CLIENT_SECRET='.-4VPTHSd~3.Z-9NyM4cGl29H0Ci.BM2.5'
-#$CLIENT_ID='184a837c-02dc-4d7f-bbee-8a4476487c04'
+#$CLIENT_SECRET='<ENTER YOUR VALUE>'
+#$CLIENT_ID='<ENTER YOUR VALUE>'
 
 # Call Azure Resource Manager to get details
 $BODY = "grant_type=client_credentials&client_id=$CLIENT_ID&client_secret=$CLIENT_SECRET&resource=https://management.azure.com/"
