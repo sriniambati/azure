@@ -69,7 +69,12 @@
     "replicationSchedule": {
       "type": "string"
     },
-
+ "identityId": {
+      "type": "string"
+    },
+     "deploymentScriptURI": {
+      "type": "string"
+    },
     "_artifactsLocation": {
       "type": "string"
     },
@@ -288,7 +293,32 @@
           }
         }
       }
+    },
+    {
+  "type": "Microsoft.Resources/deploymentScripts",
+  "apiVersion": "2019-10-01-preview",
+  "name": "authorizeANF",
+  "location": "[resourceGroup().location]",
+  "dependsOn": [
+    "[resourceId('Microsoft.Resources/deployments', 'ANF-Volume-Protection-Dest')]"
+  ],
+  "identity": {
+    "type": "UserAssigned",
+    "userAssignedIdentities": {
+      "[parameters('identityId')]": {
+      }
     }
+  },
+  "kind": "AzureCLI",
+  "properties": {
+    "forceUpdateTag": 1,
+    "azCliVersion": "2.0.80",
+      
+  "primaryScriptUri": "[parameters('deploymentScriptURI')]",
+    "cleanupPreference": "OnSuccess",
+    "retentionInterval": "P1D"
+  }
+}
   ],
   "outputs": {
     "srcVolumeResourceId": {
