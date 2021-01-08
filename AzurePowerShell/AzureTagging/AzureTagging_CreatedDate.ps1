@@ -27,10 +27,10 @@ $TAGNAME_CREATEDDATE = "CreatedDate"
 # Login and choose a subscription
 ###################################################
 Connect-AzAccount
-$subscription = (Get-AzSubscription | Out-GridView -Title "Select an Azure Subscription ..." -PassThru)
-Set-AzContext -SubscriptionId $subscription.Id
-$TENANT_ID = $subscription.TenantId
-$SUBSCRIPTION_ID = $subscription.Id
+$SUBSCRIPTION = (Get-AzSubscription | Out-GridView -Title "Select an Azure Subscription ..." -PassThru)
+Set-AzContext -SubscriptionId $SUBSCRIPTION.Id
+$TENANT_ID = $SUBSCRIPTION.TenantId
+$SUBSCRIPTION_ID = $SUBSCRIPTION.Id
 
 ################################################### 
 # Script execution starts here
@@ -61,7 +61,7 @@ $RESULT.value | Select name, @{Label = 'ResourceGroup'; Expression = {[regex]::M
 Write-Host "Completed Invoke-RestMethod and displayed results" -ForegroundColor Cyan
 
 # Export results to CSV
-$CSVFILEPATH = $CSVFILEPATH -replace ".csv", ("_"+ (Get-Date –Format 'yyyyMMdd_HHmmss') + ".csv")
+$CSVFILEPATH = $CSVFILEPATH -replace ".csv", ("_"+ $SUBSCRIPTION_ID + "_"+ (Get-Date –Format 'yyyyMMdd_HHmmss') + ".csv")
 $RESULT.value | Select @{Label = "tenantId"; Expression = {$TENANT_ID}}, @{Label = "subscriptionId"; Expression = {$SUBSCRIPTION_ID}}, @{Label = 'resourceGroup'; Expression = {[regex]::Match($_.id, $PATTERN).Groups[1].value}}, @{Label = "resourceName"; Expression = {$_.name}}, @{Label = "resourceType"; Expression = {$_.type}}, createdTime, id | Export-Csv $CSVFILEPATH -Delimiter "," -NoTypeInformation
 Write-Host "Generated file '$CSVFILEPATH'" -ForegroundColor Cyan
 
@@ -71,7 +71,7 @@ Write-Host "Deleted Service Principal '$SP_NAME'" -ForegroundColor Cyan
 
 
 #Create Tags
-ie($CREATE_CREATEDDATE_TAG="yes")
+if($CREATE_CREATEDDATE_TAG -eq "yes")
 {
     foreach($RESOURCE in $RESULT.value) 
     { 
@@ -101,10 +101,3 @@ ie($CREATE_CREATEDDATE_TAG="yes")
 }
 
 Write-Host "Script execution is complete'" -ForegroundColor Cyan
-
-
-
-
-
-
-
