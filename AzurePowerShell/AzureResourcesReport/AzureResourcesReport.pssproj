@@ -28,6 +28,7 @@
   <ItemGroup />
   <ItemGroup>
     <Compile Include="GetAzureResourcesReport-Category.ps1" />
+    <Compile Include="GetAzureResourcesReport-Storage.ps1" />
     <Compile Include="GetAzureResourcesReport-VM.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
