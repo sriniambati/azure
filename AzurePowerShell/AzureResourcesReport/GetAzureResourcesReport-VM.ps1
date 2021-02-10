@@ -80,6 +80,7 @@ foreach($subscription in $subscriptionList)
         foreach ($i in $vm.StorageProfile.DataDisks) { $ddNames += $i.Name + "; " }
 
         $vmInfo = New-Object System.Object
+        $vmInfo | Add-Member -type NoteProperty -name SubscriptionId -value $subscription.SubscriptionId
         $vmInfo | Add-Member -type NoteProperty -name SubscriptionName -value $subscription.Name
         $vmInfo | Add-Member -type NoteProperty -name ResourceGroupName -value $vm.ResourceGroupName
         $vmInfo | Add-Member -type NoteProperty -name VMName -value $vm.Name
