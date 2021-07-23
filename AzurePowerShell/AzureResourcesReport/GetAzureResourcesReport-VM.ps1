@@ -30,7 +30,6 @@ Login-AzAccount
 
 $sw = [Diagnostics.Stopwatch]::StartNew()
 $sqlVMResourceType = "Microsoft.SqlVirtualMachine/SqlVirtualMachines"
-$outputFile = $reportFolderPath+"\AzureVmReport_" + (Get-Date -UFormat "%Y%m%d_%I%M%S_%p").tostring() + ".csv"
 
 Write-Host "Getting Azure subscriptions..." -ForegroundColor Cyan
 # Get list of subscriptions
@@ -81,6 +80,7 @@ foreach($subscription in $subscriptionList)
         foreach ($i in $vm.StorageProfile.DataDisks) { $ddNames += $i.Name + "; " }
 
         $vmInfo = New-Object System.Object
+        $vmInfo | Add-Member -type NoteProperty -name SubscriptionId -value $subscription.SubscriptionId
         $vmInfo | Add-Member -type NoteProperty -name SubscriptionName -value $subscription.Name
         $vmInfo | Add-Member -type NoteProperty -name ResourceGroupName -value $vm.ResourceGroupName
         $vmInfo | Add-Member -type NoteProperty -name VMName -value $vm.Name
@@ -112,6 +112,7 @@ foreach($subscription in $subscriptionList)
     }
     # Write to CSV file
     Write-Host "Writing VM Details to $outputFile for subscription '$($subscription.Name)'" -ForegroundColor Cyan
+    $outputFile = $reportFolderPath+"\AzureVmReport_" + $subscription.SubscriptionId + "_" + (Get-Date -UFormat "%Y%m%d_%I%M%S_%p").tostring() + ".csv"
     $vmInfoList | Export-csv -NoType -Append $outputFile -Force
 }
 

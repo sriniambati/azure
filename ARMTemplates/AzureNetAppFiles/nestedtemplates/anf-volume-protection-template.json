@@ -1,0 +1,102 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "subscriptionId": {
+      "type": "string"
+    },
+    "accountName": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "poolName": {
+      "type": "string"
+    },
+    "volumeName": {
+      "type": "string"
+    },
+    "vnetResourceGroupName": {
+      "type": "string"
+    },
+    "vnetName": {
+      "type": "string"
+    },
+    "subnetName": {
+      "type": "string"
+    },
+    "serviceLevel": {
+      "type": "string"
+    },
+    "creationToken": {
+      "type": "string"
+    },
+    "protocolTypes": {
+      "type": "array"
+    },
+    "remoteVolumeResourceId": {
+      "type": "string"
+    },
+    "endPointType": {
+      "type": "string"
+    },
+    "replicationSchedule": {
+      "type": "string"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.NetApp/netAppAccounts/capacityPools/volumes",
+      "apiVersion": "2020-06-01",
+      "name": "[concat(parameters('accountName'), '/', parameters('poolName'), '/', parameters('volumeName'))]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "throughputMibps": 0,
+        "volumeType": "DataProtection",
+        "dataProtection": {
+          "replication": {
+            "endPointType": "[parameters('endPointType')]",
+            "replicationSchedule": "[parameters('replicationSchedule')]",
+            "remoteVolumeResourceId": "[parameters('remoteVolumeResourceId')]"
+          }
+        },
+        "serviceLevel": "[parameters('serviceLevel')]",
+        "creationToken": "[parameters('creationToken')]",
+        "usageThreshold": 107374182400,
+        "exportPolicy": {
+          "rules": [
+            {
+              "ruleIndex": 1,
+              "unixReadOnly": false,
+              "unixReadWrite": true,
+              "cifs": false,
+              "nfsv3": true,
+              "nfsv41": false,
+              "allowedClients": "0.0.0.0/0",
+              "kerberos5ReadOnly": false,
+              "kerberos5ReadWrite": false,
+              "kerberos5iReadOnly": false,
+              "kerberos5iReadWrite": false,
+              "kerberos5pReadOnly": false,
+              "kerberos5pReadWrite": false,
+              "hasRootAccess": true
+            }
+          ]
+        },
+        "protocolTypes": "[parameters('protocolTypes')]",
+        "subnetId": "[concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('vnetResourceGroupName'), '/providers/Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('subnetName'))]",
+        "kerberosEnabled": false,
+        "securityStyle": "Unix"
+      },
+      "tags": {}
+    }
+  ],
+  "outputs": {
+    "resourceID": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.NetApp/netAppAccounts/capacityPools/volumes', parameters('accountName'), parameters('poolName'), parameters('volumeName'))]"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "subscriptionId": {
+      "value": ""
+    },
+    "srcAccountName": {
+      "value": "NetAppAccountSrc1"
+    },
+    "srcLocation": {
+      "value": "eastus"
+    },
+    "srcPoolName": {
+      "value": "srcPool1"
+    },
+    "srcVolumeName": {
+      "value": "srcvolume1"
+    },
+    "srcVnetResourceGroupName": {
+      "value": "anfvnet-rg"
+    },
+    "srcVnetName": {
+      "value": "vnet-anfdemo-src1"
+    },
+    "srcSubnetName": {
+      "value": "subnet-anfdemo-src1"
+    },
+    "srcServiceLevel": {
+      "value": "Standard"
+    },
+    "srcCreationToken": {
+      "value": "srcvolume1"
+    },
+    "srcProtocolTypes": {
+      "value": [
+        "NFSv3"
+      ]
+    },
+
+    "destAccountName": {
+      "value": "NetAppAccountDest1"
+    },
+    "destLocation": {
+      "value": "westus"
+    },
+    "destPoolName": {
+      "value": "destPool1"
+    },
+    "destVolumeName": {
+      "value": "destvolume1"
+    },
+    "destVnetResourceGroupName": {
+      "value": "anfvnet-rg"
+    },
+    "destVnetName": {
+      "value": "vnet-anfdemo-dest1"
+    },
+    "destSubnetName": {
+      "value": "subnet-anfdemo-dest1"
+    },
+    "destServiceLevel": {
+      "value": "Standard"
+    },
+    "destCreationToken": {
+      "value": "srcvolume1"
+    },
+    "destProtocolTypes": {
+      "value": [
+        "NFSv3"
+      ]
+    },
+
+    "replicationSchedule": {
+      "value": "daily"
+    }
+  }
+}
